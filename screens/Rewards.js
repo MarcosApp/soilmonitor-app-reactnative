@@ -4,6 +4,7 @@ import rgba from 'hex-to-rgba';
 import Icon from 'react-native-vector-icons/FontAwesome';
 // check this lib for more options
 import { CircularProgress } from 'react-native-circular-progress';
+import LinearGradient from 'react-native-linear-gradient';
 
 import { Block, Badge, Card, Text, Progress } from '../components';
 import { theme, mocks } from '../constants';
@@ -18,7 +19,7 @@ export default class Rewards extends Component {
             { paddingLeft: theme.sizes.base },
           ]}
         >
-          Your Rewards
+          Métricas
         </Text>
       ),
       headerLeft: (
@@ -38,8 +39,8 @@ export default class Rewards extends Component {
       <Card shadow style={{ paddingVertical: theme.sizes.padding }}>
         <Block>
           <Block center>
-            <Text h1 primary spacing={1.7}>$11.71</Text>
-            <Text spacing={0.7}>Total Monthly Rewards</Text>
+            <Text h1 primary spacing={1.7}>Lorem Ipsum</Text>
+            <Text spacing={0.7}>Lorem Ipsum Lorem Ipsum</Text>
           </Block>
 
           <Block color="gray3" style={styles.hLine} />
@@ -81,8 +82,7 @@ export default class Rewards extends Component {
           >
             {() => (
               <Block center middle>
-                <Text h2 medium>8.1</Text>
-                <Text h3 transform="uppercase">good</Text>
+                <Text h2 medium>32º</Text>
               </Block>
             )}
           </CircularProgress>
@@ -90,11 +90,11 @@ export default class Rewards extends Component {
 
         <Block center>
           <Text title spacing={1} style={{marginVertical: 8}}>
-            Driving Score
+            Lorem Ipsum
           </Text>
           <Text>
-            <Text primary>37 </Text>
-            <Text gray transform="uppercase">level</Text>
+            <Text primary>00 </Text>
+            <Text gray transform="uppercase">Lorem Ipsum</Text>
           </Text>
         </Block>
 
@@ -102,18 +102,18 @@ export default class Rewards extends Component {
 
         <Block row>
           <Block center flex={0.8}>
-            <Text size={20} spacing={1} primary>79</Text>
-            <Text spacing={0.7}>Trips</Text>
+            <Text size={20} spacing={1} primary>00</Text>
+            <Text spacing={0.7}>Ipsum</Text>
           </Block>
           
           <Block center flex={2}>
-            <Text size={20} spacing={1} primary>123</Text>
-            <Text spacing={0.7}>Hours</Text>
+            <Text size={20} spacing={1} primary>00</Text>
+            <Text spacing={0.7}>Ipsum</Text>
           </Block>
 
           <Block center flex={0.8}>
-            <Text size={20} spacing={1} primary>2.786</Text>
-            <Text spacing={0.7}>Miles</Text>
+            <Text size={20} spacing={1} primary>00</Text>
+            <Text spacing={0.7}>Lorem</Text>
           </Block>
         </Block>
 
@@ -121,7 +121,7 @@ export default class Rewards extends Component {
 
         <Block style={{ marginBottom: theme.sizes.base }}>
           <Block row space="between" style={{ paddingLeft: 6 }}>
-            <Text body spacing={0.7}>Breaking</Text>
+            <Text body spacing={0.7}>Lorem Ipsum</Text>
             <Text caption spacing={0.7}>8.1</Text>
           </Block>
           <Progress value={0.81} />
@@ -129,7 +129,7 @@ export default class Rewards extends Component {
         
         <Block style={{ marginBottom: theme.sizes.base }}>
           <Block row space="between" style={{ paddingLeft: 6 }}>
-            <Text body spacing={0.7}>Speeding</Text>
+            <Text body spacing={0.7}>Lorem Ipsum</Text>
             <Text caption spacing={0.7}>9.8</Text>
           </Block>
           <Progress value={0.98} />
@@ -137,7 +137,7 @@ export default class Rewards extends Component {
 
         <Block style={{ marginBottom: theme.sizes.base }}>
           <Block row space="between" style={{ paddingLeft: 6 }}>
-            <Text body spacing={0.7}>Distracted Driving</Text>
+            <Text body spacing={0.7}>Lorem Ipsum</Text>
             <Text caption spacing={0.7}>7.4</Text>
           </Block>
           <Progress endColor="#D37694" value={0.40} />
@@ -146,7 +146,7 @@ export default class Rewards extends Component {
         <Block color="gray3" style={styles.hLine} />
 
         <Block row center space="between">
-          <Text>Total Driver Discount</Text>
+          <Text>Lorem Ipsum Lorem Ipsum</Text>
           <Text size={20} spacing={1} primary>$6.71</Text>
         </Block>
       </Card>
@@ -177,10 +177,10 @@ export default class Rewards extends Component {
           </Block>
           <Block middle>
             <Text size={theme.sizes.base} spacing={0.4} medium white>
-              Hit zero pedestrians
+              Lorem Ipsum
             </Text>
             <Text size={theme.sizes.base} spacing={0.4} medium white>
-              during next trip - $5
+              Lorem Ipsum
             </Text>
           </Block>
         </Card>
@@ -190,11 +190,15 @@ export default class Rewards extends Component {
 
   render() {
     return (
+      <LinearGradient
+        colors={['#e6ccb3', '#e6ccb3', '#d9b38c', '#ac7339']}
+        style={{flex: 1}}>
       <ScrollView style={styles.rewards} showsVerticalScrollIndicator={false}>
         {this.renderMonthly()}
         {this.renderRewards()}
         {this.renderChallenges()}
       </ScrollView>
+      </LinearGradient>
     )
   }
 }

@@ -15,7 +15,8 @@ const screens = createStackNavigator({
     defaultNavigationOptions:{
         
         headerStyle: {
-            backgroundColor: theme.colors.gray4,
+            height:60,
+            backgroundColor: '#DEC0A6',
             elevation: 0,
             shadowOpacity: 0
           },
@@ -33,8 +34,7 @@ const screens = createStackNavigator({
             marginRight: theme.sizes.padding,
           },
         },
-        headerLayoutPreset: 'left',
-        backgroundColor: 'red'
-    });
+        headerLayoutPreset: 'left'
+      });
     
 export default createAppContainer(screens);

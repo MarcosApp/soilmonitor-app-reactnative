@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dimensions, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native';
+import { Dimensions, StyleSheet, StatusBar, ScrollView, Image, TouchableOpacity } from 'react-native';
 
 import { Block, Badge,Card, Text, } from '../components';
 import { styles as blockStyles } from '../components/Block'
@@ -10,7 +10,6 @@ import rgba from 'hex-to-rgba';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const { width } = Dimensions.get('window');
-
 export default class Welcome extends Component {
     static navigationOptions = {
         headerTitle: <Text style={theme.fonts.header}> Soil Monitor </Text>,
@@ -24,7 +23,7 @@ export default class Welcome extends Component {
                     />
                     <Badge
                         size={13}
-                        color={theme.colors.accent}
+                        color={theme.colors.primary}
                         style={{position: 'absolute', top: -4, right: -4}}
                     />
                 </Block>
@@ -34,69 +33,70 @@ export default class Welcome extends Component {
 
     renderMonthly(){
 
-        const { navigation } = this.props;
-
         return (
-            <TouchableOpacity 
-                activeOpacity={0.8} 
-                onPress={() => navigation.navigate("Rewards")}
-            >
-                <Card shadow style={{ marginBottom: theme.sizes.base }}>
-                    <Image 
-                        resizeMode="contain"
-                        source={require('../assets/images/More.png')}
-                        style={styles.moreIcon}
-                    />
-                    <Block>
-                        <Block center>
-                            <Text h1 primary spacing={1.7}>Lorem Ipsum</Text>
-                            <Text spacing={0.7}>Lorem Ipsum is simply dummy text </Text>
-                        </Block>
-
-                        <Block color="gray3" style={styles.hLine} />
-
-                        <Block row>
-                            <Block center>
-                                <Text size={20} spacing={0.6} primary style={{ marginBottom: 6}}>00</Text>
-                                <Text body spacing={0.7}>Lorem</Text>
-                                <Text body spacing={0.7}>Ipsum</Text>
-                            </Block>
-
-                            <Block flex={false} color="gray3" style={styles.vLine} />
-
-                            <Block center>
-                                <Text size={20} spacing={0.6} primary style={{ marginBottom: 6}}>00</Text>
-                                <Text body spacing={0.7}>Lorem</Text>
-                                <Text body spacing={0.7}>Ipsum</Text>
-                            </Block>
-                        </Block>
-                        
+            
+            <Card shadow style={{ marginBottom: theme.sizes.base }}>
+                <Image 
+                    resizeMode="contain"
+                    source={require('../assets/images/More.png')}
+                    style={styles.moreIcon}
+                />
+                <Block>
+                    <Block center>
+                        <Text h1 primary spacing={1.7}>Lorem Ipsum</Text>
+                        <Text spacing={0.7}>Lorem Ipsum is simply dummy text </Text>
                     </Block>
-                </Card>
-            </TouchableOpacity>
+
+                    <Block color="#86592d" style={styles.hLine} />
+
+                    <Block row>
+                        <Block center>
+                            <Text size={20} spacing={0.6} primary style={{ marginBottom: 6}}>00</Text>
+                            <Text body spacing={0.7}>Lorem</Text>
+                            <Text body spacing={0.7}>Ipsum</Text>
+                        </Block>
+
+                        <Block flex={false} color="#86592d" style={styles.vLine} />
+
+                        <Block center>
+                            <Text size={20} spacing={0.6} primary style={{ marginBottom: 6}}>00</Text>
+                            <Text body spacing={0.7}>Lorem</Text>
+                            <Text body spacing={0.7}>Ipsum</Text>
+                        </Block>
+                    </Block>
+                    
+                </Block>
+            </Card>
         )
     }
 
     renderAwards(){
+
+        const { navigation } = this.props;
+
         return (
-            <LinearGradient
-                end={{ x: 1, y: 0}}
-                style={[ blockStyles.row, cardStyles.card, styles.awards]}
-                colors={["#FF988A", theme.colors.accent]}    
+
+            <TouchableOpacity 
+                activeOpacity={0.8} 
+                onPress={() => navigation.navigate("Rewards")}
             >
-                <Block middle flex={0.4}>
-                    <Badge color={rgba(theme.colors.white, '0.2')} size={74}>
-                        <Badge color={rgba(theme.colors.white, '0.2')} size={52}>
-                        <Icon name="heartbeat" size={30} color="white" size={theme.sizes.h2} />
+                <LinearGradient
+                    end={{ x: 1, y: 0}}
+                    style={[ blockStyles.row, cardStyles.card, styles.awards]}
+                    colors={["#cc9966", "#996633"]}    
+                >
+                    <Block middle flex={0.4}>
+                        <Badge color={rgba(theme.colors.secondary, '0.2')} size={74}>
+                            <Badge color={theme.colors.secondary} size={52}>
+                            <Icon name="signal" size={30} color="white" size={theme.sizes.h2} />
+                            </Badge>
                         </Badge>
-                    </Badge>
-                </Block>
-                <Block middle>
-                    <Text size={theme.sizes.base} spacing={0.4} medium white>Wooho!</Text>
-                    <Text size={theme.sizes.base} spacing={0.4} medium white>Acompanha em Tempo Real!</Text>
-                </Block> 
-            </LinearGradient>
-           
+                    </Block>
+                    <Block middle>
+                        <Text size={theme.sizes.font} spacing={0.4} medium white>Acompanha em Tempo Real!</Text>
+                    </Block> 
+                </LinearGradient>
+            </TouchableOpacity>
         )
     }
 
@@ -114,8 +114,8 @@ export default class Welcome extends Component {
                         <Text spacing={0.5} caption > Sensor: </Text>
                     </Block>
                     <Block row center>
-                        <Badge color={rgba(theme.colors.accent, '0.2')} size={14}>
-                            <Badge color={theme.colors.accent} size={8}/>
+                        <Badge color={rgba(theme.colors.secondary, '0.2')} size={14}>
+                            <Badge color={theme.colors.secondary} size={8}/>
                         </Badge>
                         <Text spacing={0.8} color="gray"> Lorem Ipsum is simply dummy text </Text>
                     </Block>                    
@@ -140,17 +140,16 @@ export default class Welcome extends Component {
                 </Card>
 
             </React.Fragment>
-            
         )
     }
 
     renderTripButton(){
         return (
           <Block center middle style={styles.startTrip}>
-            <Badge color={rgba(theme.colors.primary, '0.1')} size={144}>
+            <Badge color={rgba(theme.colors.primary, '0.1')} size={100}>
                 <TouchableOpacity>
                     <Badge color={(theme.colors.primary)} size={62}>
-                        <Icon name="heartbeat" size={62/2} color="white" size={theme.sizes.h2} />
+                        <Icon name="stop" size={62/2} color="white" size={theme.sizes.h2} />
                     </Badge>
                 </TouchableOpacity>
             </Badge>
@@ -160,14 +159,17 @@ export default class Welcome extends Component {
 
     render() {
         return (
-            <React.Fragment>
+            <LinearGradient
+            colors={['#e6ccb3', '#e6ccb3', '#d9b38c', '#ac7339']}
+            style={{flex: 1}}>
+            <StatusBar hidden={true} />
             <ScrollView style={styles.welcome} showsVerticalScrollIndicator={false}>
                 {this.renderMonthly()}
                 {this.renderAwards()}
                 {this.renderTrips()}
             </ScrollView>
             {this.renderTripButton()}
-            </React.Fragment>
+            </LinearGradient>
             
         )
     }
@@ -177,7 +179,7 @@ const styles = StyleSheet.create({
     welcome: {
         paddingVertical: theme.sizes.padding,
         paddingHorizontal: theme.sizes.padding,
-        backgroundColor: theme.colors.gray4,
+        backgroundColor: rgba(theme.colors.secondary, '0.1'),
         borderTopColor: 'transparent',
     },
     hLine: {
@@ -205,8 +207,8 @@ const styles = StyleSheet.create({
     },
     startTrip:{
         position:'absolute',
-        left: (width - 144) / 2,
-        bottom: 0,
+        left: (width - 100) / 2,
+        bottom: 10,
 
     }
 });
