@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Dimensions, StyleSheet, StatusBar, ScrollView, Image, TouchableOpacity } from 'react-native';
-
 import { Block, Badge,Card, Text, } from '../components';
 import { styles as blockStyles } from '../components/Block'
 import { styles as cardStyles } from '../components/Card'
@@ -8,9 +7,10 @@ import { theme, mocks, } from '../constants';
 import LinearGradient from 'react-native-linear-gradient';
 import rgba from 'hex-to-rgba';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
+const Pulse = require('react-native-pulse').default;
 const { width } = Dimensions.get('window');
 export default class Welcome extends Component {
+    
     static navigationOptions = {
         headerTitle: <Text style={theme.fonts.header}> Soil Monitor </Text>,
         headerRight: (
@@ -35,7 +35,7 @@ export default class Welcome extends Component {
 
         return (
             
-            <Card shadow style={{ marginBottom: theme.sizes.base }}>
+            <Card shadow style={styles.box}>
                 <Image 
                     resizeMode="contain"
                     source={require('../assets/images/More.png')}
@@ -88,7 +88,8 @@ export default class Welcome extends Component {
                     <Block middle flex={0.4}>
                         <Badge color={rgba(theme.colors.secondary, '0.2')} size={74}>
                             <Badge color={theme.colors.secondary} size={52}>
-                            <Icon name="signal" size={30} color="white" size={theme.sizes.h2} />
+                                <Pulse color={theme.colors.secondary} numPulses={4} diameter={100} speed={30} duration={1000} /> 
+                                <Icon name="signal" size={30} color="white" size={theme.sizes.h2} />
                             </Badge>
                         </Badge>
                     </Block>
@@ -146,9 +147,10 @@ export default class Welcome extends Component {
     renderTripButton(){
         return (
           <Block center middle style={styles.startTrip}>
-            <Badge color={rgba(theme.colors.primary, '0.1')} size={100}>
+            <Badge color={rgba(theme.colors.primary, '0.1')} size={80}>
                 <TouchableOpacity>
                     <Badge color={(theme.colors.primary)} size={62}>
+                        <Pulse color={theme.colors.primary} numPulses={2} diameter={80} speed={30} duration={1000} /> 
                         <Icon name="stop" size={62/2} color="white" size={theme.sizes.h2} />
                     </Badge>
                 </TouchableOpacity>
@@ -160,15 +162,15 @@ export default class Welcome extends Component {
     render() {
         return (
             <LinearGradient
-            colors={['#e6ccb3', '#e6ccb3', '#d9b38c', '#ac7339']}
-            style={{flex: 1}}>
+                colors={['#e6ccb3', '#e6ccb3', '#d9b38c', '#ac7339']}
+                style={{flex: 1}}>
             <StatusBar hidden={true} />
             <ScrollView style={styles.welcome} showsVerticalScrollIndicator={false}>
                 {this.renderMonthly()}
                 {this.renderAwards()}
                 {this.renderTrips()}
             </ScrollView>
-            {this.renderTripButton()}
+                {this.renderTripButton()}
             </LinearGradient>
             
         )
@@ -181,6 +183,19 @@ const styles = StyleSheet.create({
         paddingHorizontal: theme.sizes.padding,
         backgroundColor: rgba(theme.colors.secondary, '0.1'),
         borderTopColor: 'transparent',
+    },
+    box:{
+        marginBottom: theme.sizes.base,
+        borderRadius:10,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 1,
+            height: 15,
+        },
+        shadowOpacity: 0.30,
+        shadowRadius: 10,
+
+        elevation: 10,
     },
     hLine: {
         marginVertical: theme.sizes.base * 2,
@@ -207,7 +222,7 @@ const styles = StyleSheet.create({
     },
     startTrip:{
         position:'absolute',
-        left: (width - 100) / 2,
+        left: (width - 80) / 2,
         bottom: 10,
 
     }

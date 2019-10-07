@@ -47,17 +47,17 @@ export default class Rewards extends Component {
 
           <Block row>
             <Block center>
-              <Text size={20} spacing={0.6} primary style={{ marginBottom: 6 }}>$5</Text>
-              <Text body spacing={0.7}>Challenge</Text>
-              <Text body spacing={0.7}>Credit</Text>
+              <Text size={20} spacing={0.6} primary style={{ marginBottom: 6 }}>00</Text>
+              <Text body spacing={0.7}>Lorem Ipsum</Text>
+              <Text body spacing={0.7}>Lorem Ipsum</Text>
             </Block>
 
             <Block flex={false} color="gray3" style={styles.vLine} />
 
             <Block center>
-              <Text size={20} spacing={0.6} primary style={{ marginBottom: 6 }}>$6.71</Text>
-              <Text body spacing={0.7}>Driver</Text>
-              <Text body spacing={0.7}>Discount</Text>
+              <Text size={20} spacing={0.6} primary style={{ marginBottom: 6 }}>00</Text>
+              <Text body spacing={0.7}>Lorem Ipsum</Text>
+              <Text body spacing={0.7}>Lorem Ipsum</Text>
             </Block>
           </Block>
         </Block>
@@ -163,7 +163,7 @@ export default class Rewards extends Component {
           }}
         >
           <Text spacing={0.7} transform="uppercase">
-            Challenges taken
+            Lorem Ipsum
           </Text>
         </Block>
 
@@ -191,13 +191,13 @@ export default class Rewards extends Component {
   render() {
     return (
       <LinearGradient
-        colors={['#e6ccb3', '#e6ccb3', '#d9b38c', '#ac7339']}
-        style={{flex: 1}}>
-      <ScrollView style={styles.rewards} showsVerticalScrollIndicator={false}>
-        {this.renderMonthly()}
-        {this.renderRewards()}
-        {this.renderChallenges()}
-      </ScrollView>
+          colors={['#e6ccb3', '#e6ccb3', '#d9b38c', '#ac7339']}
+          style={{flex: 1}}>
+        <ScrollView style={styles.rewards} showsVerticalScrollIndicator={false}>
+          {this.renderMonthly()}
+          {this.renderRewards()}
+          {this.renderChallenges()}
+        </ScrollView>
       </LinearGradient>
     )
   }
@@ -205,8 +205,7 @@ export default class Rewards extends Component {
 
 const styles = StyleSheet.create({
   rewards: {
-    padding: theme.sizes.padding,
-    backgroundColor: theme.colors.gray4,
+    padding: theme.sizes.padding
   },
   // horizontal line
   hLine: {
