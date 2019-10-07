@@ -27,34 +27,40 @@ const colors = {
     body: 12,
     caption: 12,
     small: 8,
+    bodyTitle: 20
   };
   
   const fonts = {
     h1: {
-      //fontFamily: "Rubik-Light",
+      fontFamily: "Rubik-Light",
       fontSize: sizes.h1
     },
     h2: {
-      //fontFamily: "Rubik-Medium",
+      fontFamily: "Rubik-Medium",
       fontSize: sizes.h2
     },
     h3: {
-      //fontFamily: "Rubik-Regular",
+      fontFamily: "Rubik-Regular",
       fontSize: sizes.h3
     },
     header: {
-      //fontFamily: "Rubik-Bold",
+      fontFamily: "Rubik-Bold",
       fontSize: sizes.header
     },
     title: {
-      //fontFamily: "Rubik-Regular",
+      fontFamily: "Rubik-Regular",
       fontSize: sizes.title
     },
     body: {
       fontSize: sizes.body
     },
     caption: {
+      fontFamily: "Rubik-Regular",
       fontSize: sizes.caption
+    },
+    text: {
+      fontFamily: "Rubik-Regular",
+      fontSize: sizes.base
     },
     small: {
       fontSize: sizes.small

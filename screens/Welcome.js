@@ -12,7 +12,7 @@ const { width } = Dimensions.get('window');
 export default class Welcome extends Component {
     
     static navigationOptions = {
-        headerTitle: <Text style={theme.fonts.header}> Soil Monitor </Text>,
+        headerTitle: <Text padding={20} style={theme.fonts.header}> Soil Monitor </Text>,
         headerRight: (
             <TouchableOpacity>
                 <Block flex={false}>
@@ -35,7 +35,7 @@ export default class Welcome extends Component {
 
         return (
             
-            <Card shadow style={styles.box}>
+            <Card shadow style={styles.box, theme.fonts.text}>
                 <Image 
                     resizeMode="contain"
                     source={require('../assets/images/More.png')}
@@ -43,8 +43,8 @@ export default class Welcome extends Component {
                 />
                 <Block>
                     <Block center>
-                        <Text h1 primary spacing={1.7}>Lorem Ipsum</Text>
-                        <Text spacing={0.7}>Lorem Ipsum is simply dummy text </Text>
+                        <Text h1 primary spacing={1.7} style={theme.fonts.bodyTitle}>Lorem Ipsum</Text>
+                        <Text spacing={0.7} style={theme.fonts.body}>Lorem Ipsum is simply dummy text </Text>
                     </Block>
 
                     <Block color="#86592d" style={styles.hLine} />
@@ -94,7 +94,7 @@ export default class Welcome extends Component {
                         </Badge>
                     </Block>
                     <Block middle>
-                        <Text size={theme.sizes.font} spacing={0.4} medium white>Acompanha em Tempo Real!</Text>
+                        <Text size={theme.sizes.font} spacing={0.4} medium white text>Acompanha em Tempo Real!</Text>
                     </Block> 
                 </LinearGradient>
             </TouchableOpacity>
@@ -104,8 +104,8 @@ export default class Welcome extends Component {
     renderTrips(){
         return (
             <React.Fragment>
-                <Block style={{ marginBottom: theme.sizes.base }}>
-                    <Text spacing={0.4} transform="uppercase">
+                <Block style={{ marginBottom: theme.sizes.base}}>
+                    <Text spacing={0.4} transform="uppercase" text>
                         localização atual dispositivo
                     </Text>
                 </Block>

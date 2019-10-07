@@ -14,9 +14,9 @@ export default class Rewards extends Component {
     return {
       headerTitle: (
         <Text
-          style={[
+            style={[
             theme.fonts.header,
-            { paddingLeft: theme.sizes.base },
+            { paddingLeft: theme.sizes.base }
           ]}
         >
           Métricas
