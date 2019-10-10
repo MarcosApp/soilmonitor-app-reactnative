@@ -27,7 +27,7 @@ export default class Rewards extends Component {
           <Image
             resizeMode="contain"
             source={require('../assets/images/Back.png')}
-            style={{ width: 20, height: 24, marginRight: theme.sizes.base }}
+            style={{ width: 30, height: 24, marginBottom: 15 }}
           />
         </TouchableOpacity>
       )

@@ -19,10 +19,10 @@ export default class Welcome extends Component {
                     <Image 
                         resizeMode="contain"
                         source={require('../assets/images/Menu.png')}
-                        style={{width: 20, height:24}}
+                        style={{width: 30, height:30}}
                     />
                     <Badge
-                        size={13}
+                        size={20}
                         color={theme.colors.primary}
                         style={{position: 'absolute', top: -4, right: -4}}
                     />
@@ -162,7 +162,7 @@ export default class Welcome extends Component {
     render() {
         return (
             <LinearGradient
-                colors={['#e6ccb3', '#e6ccb3', '#d9b38c', '#ac7339']}
+                colors={['#d9b18c', '#e6ccb3', '#d9b38c', '#ac7339']}
                 style={{flex: 1}}>
             <StatusBar hidden={true} />
             <ScrollView style={styles.welcome} showsVerticalScrollIndicator={false}>

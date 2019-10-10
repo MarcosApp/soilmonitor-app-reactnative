@@ -45,7 +45,9 @@ const colors = {
     },
     header: {
       fontFamily: "Rubik-Bold",
-      fontSize: sizes.header
+      fontSize: sizes.header,
+      fontWeight: '500',
+      padding:10,
     },
     title: {
       fontFamily: "Rubik-Regular",
