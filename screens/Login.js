@@ -25,6 +25,8 @@ export default class Login extends Component {
             this.setState( { isAuthentication: true });
 
             console.log(user);
+            this.props.navigation.navigate('Welcome');
+
 
         } catch (err) {
             console.log(err);
@@ -52,7 +54,7 @@ export default class Login extends Component {
                 <Text>Login</Text>
             </TouchableOpacity>
 
-            { this.state.isAuthentication ? <Text>LOgado com sucesso</Text> : null}
+            { this.state.isAuthentication ? <Text>LOgado com sucesso</Text> : null }
         </View>)
     }
 }

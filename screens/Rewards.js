@@ -5,11 +5,23 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 // check this lib for more options
 import { CircularProgress } from 'react-native-circular-progress';
 import LinearGradient from 'react-native-linear-gradient';
+import { database } from '../components/ConfigFirebase';
 
 import { Block, Badge, Card, Text, Progress } from '../components';
 import { theme, mocks } from '../constants';
 
 export default class Rewards extends Component {
+
+  state = {
+    //Temperatura
+    TemperaturaCelsius: 0,
+    TemperaturaFahrenheit: 0,
+    UmidadeTemp: 0,
+    //Sensor
+    Status: "Sem Sinal",
+    UmidadeSensor: 0
+  };
+
   static navigationOptions = ({ navigation }) => {
     return {
       headerTitle: (
@@ -34,30 +46,55 @@ export default class Rewards extends Component {
     }
   }
   
+  componentDidMount(){
+    let firebaseDbTemp = database.ref('SoilMonitor_USJT/TemperaturaAmbiente');
+    firebaseDbTemp.on('value', (snapshot) => {
+        //Temperatura Ambiente
+        var TemperaturaCelsius = snapshot.val().TemperaturaCelsius;
+        var TemperaturaFahrenheit = snapshot.val().TemperaturaFahrenheit;
+        var Umidade = snapshot.val().Umidade;
+        this.setState({
+          TemperaturaCelsius: TemperaturaCelsius,
+          TemperaturaFahrenheit: TemperaturaFahrenheit,
+          UmidadeTemp: Umidade,
+        })
+      });
+      let firebaseDbSensor = database.ref('SoilMonitor_USJT/Sensor');
+      firebaseDbSensor.on('value', (snapshot) => {
+        //Temperatura Ambiente
+        var Status = snapshot.val().Status;
+        var Umidade = snapshot.val().Umidade;
+        this.setState({
+          Status: Status,
+          UmidadeSensor: Umidade,
+        })
+      });
+  }
+
   renderMonthly() {
     return (
       <Card shadow style={{ paddingVertical: theme.sizes.padding }}>
         <Block>
           <Block center>
-            <Text h1 primary spacing={1.7}>Lorem Ipsum</Text>
-            <Text spacing={0.7}>Lorem Ipsum Lorem Ipsum</Text>
+            <Text h3 primary spacing={1.7}>{this.state.Status}</Text>
+            <Text spacing={0.7}>Temperatura Ambiente</Text>
           </Block>
 
           <Block color="gray3" style={styles.hLine} />
 
           <Block row>
             <Block center>
-              <Text size={20} spacing={0.6} primary style={{ marginBottom: 6 }}>00</Text>
-              <Text body spacing={0.7}>Lorem Ipsum</Text>
-              <Text body spacing={0.7}>Lorem Ipsum</Text>
+              <Text size={20} spacing={0.6} primary style={{ marginBottom: 6 }}>{this.state.TemperaturaCelsius.toString().substring(0,4)} ºC</Text>
+              <Text body spacing={0.7}>Temperatura</Text>
+              <Text body spacing={0.7}>Celsius</Text>
             </Block>
 
             <Block flex={false} color="gray3" style={styles.vLine} />
 
             <Block center>
-              <Text size={20} spacing={0.6} primary style={{ marginBottom: 6 }}>00</Text>
-              <Text body spacing={0.7}>Lorem Ipsum</Text>
-              <Text body spacing={0.7}>Lorem Ipsum</Text>
+              <Text size={20} spacing={0.6} primary style={{ marginBottom: 6 }}>{this.state.TemperaturaFahrenheit.toString().substring(0,4)} ºF</Text>
+              <Text body spacing={0.7}>Temperatura</Text>
+              <Text body spacing={0.7}>Fahrenheit</Text>
             </Block>
           </Block>
         </Block>
@@ -66,12 +103,13 @@ export default class Rewards extends Component {
   }
   
   renderRewards() {
+    
     return (
       <Card shadow style={{ paddingVertical: theme.sizes.base * 2}}>
         <Block center>
           <CircularProgress
-            size={214} // can use  with * .5 => 50%
-            fill={40} // percentage
+            size={200} // can use  with * .5 => 50%
+            fill={this.state.UmidadeSensor} // percentage
             lineCap="round" // line ending style
             rotation={220}
             arcSweepAngle={280}
@@ -82,7 +120,7 @@ export default class Rewards extends Component {
           >
             {() => (
               <Block center middle>
-                <Text h2 medium>32º</Text>
+                <Text h2 medium>{this.state.UmidadeSensor.toString().substring(0,3)}%</Text>
               </Block>
             )}
           </CircularProgress>
@@ -90,11 +128,11 @@ export default class Rewards extends Component {
 
         <Block center>
           <Text title spacing={1} style={{marginVertical: 8}}>
-            Lorem Ipsum
+            Umidade Porcentual
           </Text>
           <Text>
-            <Text primary>00 </Text>
-            <Text gray transform="uppercase">Lorem Ipsum</Text>
+            <Text primary>{this.state.UmidadeSensor.toString().substring(0,3)}% </Text>
+            <Text gray transform="uppercase">Sensor</Text>
           </Text>
         </Block>
 
@@ -103,17 +141,17 @@ export default class Rewards extends Component {
         <Block row>
           <Block center flex={0.8}>
             <Text size={20} spacing={1} primary>00</Text>
-            <Text spacing={0.7}>Ipsum</Text>
+            <Text spacing={0.7}>Clima</Text>
           </Block>
           
           <Block center flex={2}>
             <Text size={20} spacing={1} primary>00</Text>
-            <Text spacing={0.7}>Ipsum</Text>
+            <Text spacing={0.7}>Densidade Sensor</Text>
           </Block>
 
           <Block center flex={0.8}>
-            <Text size={20} spacing={1} primary>00</Text>
-            <Text spacing={0.7}>Lorem</Text>
+            <Text size={20} spacing={1} primary>{this.state.UmidadeTemp.toString().substring(0,2)} %</Text>
+            <Text spacing={0.7}>Umidade Ambiente</Text>
           </Block>
         </Block>
 
@@ -140,7 +178,7 @@ export default class Rewards extends Component {
             <Text body spacing={0.7}>Lorem Ipsum</Text>
             <Text caption spacing={0.7}>7.4</Text>
           </Block>
-          <Progress endColor="#D37694" value={0.40} />
+          <Progress endColor="#D37694" value={0.90} />
         </Block>
 
         <Block color="gray3" style={styles.hLine} />
@@ -189,6 +227,7 @@ export default class Rewards extends Component {
   }
 
   render() {
+      
     return (
       <LinearGradient
           colors={['#e6ccb3', '#e6ccb3', '#d9b38c', '#ac7339']}

@@ -9,8 +9,13 @@ import rgba from 'hex-to-rgba';
 import Icon from 'react-native-vector-icons/FontAwesome';
 const Pulse = require('react-native-pulse').default;
 const { width } = Dimensions.get('window');
+
+import { database } from '../components/ConfigFirebase';
+
+var statusSensor = '';
+
 export default class Welcome extends Component {
-    
+
     static navigationOptions = {
         headerTitle: <Text padding={20} style={theme.fonts.header}> Soil Monitor </Text>,
         headerRight: (
@@ -43,7 +48,7 @@ export default class Welcome extends Component {
                 />
                 <Block>
                     <Block center>
-                        <Text h1 primary spacing={1.7} style={theme.fonts.bodyTitle}>Lorem Ipsum</Text>
+                        <Text h1 primary spacing={1.7} style={theme.fonts.bodyTitle}>{statusSensor}</Text>
                         <Text spacing={0.7} style={theme.fonts.body}>Lorem Ipsum is simply dummy text </Text>
                     </Block>
 

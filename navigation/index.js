@@ -10,7 +10,7 @@ import { fadeIn  } from 'react-navigation-transitions';
 import { theme } from '../constants';
 
 const screens = createStackNavigator({
-    Login,
+//    Login,
     Welcome,
     Rewards,
     Trip,
