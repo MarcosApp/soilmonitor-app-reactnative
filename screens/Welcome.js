@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dimensions, StyleSheet, StatusBar, ScrollView, Image, TouchableOpacity } from 'react-native';
+import { Dimensions, StyleSheet, StatusBar, ScrollView, Image, TouchableOpacity, Button } from 'react-native';
 import { Block, Badge,Card, Text, } from '../components';
 import { styles as blockStyles } from '../components/Block'
 import { styles as cardStyles } from '../components/Card'
@@ -12,9 +12,13 @@ const { width } = Dimensions.get('window');
 
 import { database } from '../components/ConfigFirebase';
 
-var statusSensor = '';
-
 export default class Welcome extends Component {
+    
+    state = {
+        //Sensor
+        StatusOperacao: false,
+        ConectadoIP: "Sem Conexão",
+      };
 
     static navigationOptions = {
         headerTitle: <Text padding={20} style={theme.fonts.header}> Soil Monitor </Text>,
@@ -48,7 +52,7 @@ export default class Welcome extends Component {
                 />
                 <Block>
                     <Block center>
-                        <Text h1 primary spacing={1.7} style={theme.fonts.bodyTitle}>{statusSensor}</Text>
+                        <Text h1 primary spacing={1.7} style={theme.fonts.bodyTitle}>{ this.state.StatusOperacao ? "Ativado" : "Desativado" }</Text>
                         <Text spacing={0.7} style={theme.fonts.body}>Lorem Ipsum is simply dummy text </Text>
                     </Block>
 
@@ -74,7 +78,7 @@ export default class Welcome extends Component {
             </Card>
         )
     }
-
+    
     renderAwards(){
 
         const { navigation } = this.props;
@@ -123,7 +127,7 @@ export default class Welcome extends Component {
                         <Badge color={rgba(theme.colors.secondary, '0.2')} size={14}>
                             <Badge color={theme.colors.secondary} size={8}/>
                         </Badge>
-                        <Text spacing={0.8} color="gray"> Lorem Ipsum is simply dummy text </Text>
+                        <Text spacing={0.8} color="gray"> { this.state.StatusOperacao ? this.state.ConectadoIP  : "Sem Local" } </Text>
                     </Block>                    
                 </Card>
 
@@ -140,7 +144,7 @@ export default class Welcome extends Component {
                         <Badge color={rgba(theme.colors.primary, '0.2')} size={14}>
                             <Badge color={theme.colors.primary} size={8}/>
                         </Badge>
-                        <Text spacing={0.8} color="gray"> Lorem Ipsum is simply dummy text </Text>
+                        <Text spacing={0.8} color="gray"> { this.state.StatusOperacao ? "São Paulo" : "Sem Local" } </Text>
                     </Block>
                     
                 </Card>
@@ -153,16 +157,45 @@ export default class Welcome extends Component {
         return (
           <Block center middle style={styles.startTrip}>
             <Badge color={rgba(theme.colors.primary, '0.1')} size={80}>
-                <TouchableOpacity>
+            { this.state.StatusOperacao ?  
+                <TouchableOpacity
+                 onPress={() =>  this.handleUpdate(false)}>
                     <Badge color={(theme.colors.primary)} size={62}>
                         <Pulse color={theme.colors.primary} numPulses={2} diameter={80} speed={30} duration={1000} /> 
                         <Icon name="stop" size={62/2} color="white" size={theme.sizes.h2} />
                     </Badge>
                 </TouchableOpacity>
+                : 
+                <TouchableOpacity
+                onPress={() => this.handleUpdate(true)}>
+                    <Badge color={(theme.colors.primary)} size={62}>
+                        <Pulse color={theme.colors.primary} numPulses={2} diameter={80} speed={30} duration={1000} /> 
+                        <Icon name="rss" size={62/2} color="white" size={theme.sizes.h2} />
+                    </Badge> 
+                </TouchableOpacity>
+            }
             </Badge>
           </Block>  
         )
     }
+    handleUpdate = (bool) => database.ref('SoilMonitor_USJT/Sensor/').update({StatusOperacao: bool})
+
+    componentDidMount(){
+    let firebaseDbTemp = database.ref('SoilMonitor_USJT/Sensor/');
+        firebaseDbTemp.on('value', (snapshot) => {
+            //Sensor
+            var StatusOperacao = snapshot.val().StatusOperacao;
+            var ConectadoIP = snapshot.val().ConectadoIP;
+            this.setState({
+                StatusOperacao: StatusOperacao,
+                ConectadoIP: ConectadoIP,
+            })
+            
+        });
+
+    }
+
+    
 
     render() {
         return (
