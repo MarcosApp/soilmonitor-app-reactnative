@@ -4,7 +4,7 @@ import NetInfo from "@react-native-community/netinfo";
 import { Block, Badge,Card, Text, } from '../components';
 import { styles as blockStyles } from '../components/Block'
 import { styles as cardStyles } from '../components/Card'
-import { Dialog} from "react-native-simple-dialogs";
+import { Dialog, ProgressDialog } from "react-native-simple-dialogs";
 import { theme, mocks, } from '../constants';
 import LinearGradient from 'react-native-linear-gradient';
 import rgba from 'hex-to-rgba';
@@ -21,7 +21,12 @@ export default class Welcome extends Component {
         //Sensor
         StatusOperacao: false,
         ConectadoIP: "Sem Conexão",
-        ConectadoInternet: false
+        ConectadoInternet: false,
+        TemperaturaCelsius: 0,
+        Umidade: 0,
+        AtivandoSensor:false,
+        DesativaSensor:false,
+        VerificandoStatusSensor:false
       };
 
     openDialog = (show) => {
@@ -76,17 +81,23 @@ export default class Welcome extends Component {
 
                     <Block row>
                         <Block center>
-                            <Text size={20} spacing={0.6} primary style={{ marginBottom: 6}}>00</Text>
-                            <Text body spacing={0.7}>Lorem</Text>
-                            <Text body spacing={0.7}>Ipsum</Text>
+                            <Text size={20} spacing={0.6} primary style={{ marginBottom: 6}}>{ this.state.StatusOperacao ?  this.state.TemperaturaCelsius.toString().substring(0,4) : 0}</Text>
+                            {this.state.StatusOperacao ? 
+                            <Icon spacing={2} name="thermometer-quarter" color="#006600" size={20} />
+                            : <Icon spacing={2} name="times" color="#006600" size={20} /> }
+                            <Text body spacing={0.7}>Temperatura</Text>
+                            <Text body spacing={0.7}>Celsius</Text>
+                            
                         </Block>
 
                         <Block flex={false} color="#86592d" style={styles.vLine} />
 
                         <Block center>
-                            <Text size={20} spacing={0.6} primary style={{ marginBottom: 6}}>00</Text>
-                            <Text body spacing={0.7}>Lorem</Text>
-                            <Text body spacing={0.7}>Ipsum</Text>
+                            <Text size={20} spacing={0.6} primary style={{ marginBottom: 6}}>{ this.state.StatusOperacao ?  this.state.Umidade : 0}</Text>
+                            {this.state.StatusOperacao ? 
+                            <Icon spacing={2} name="snowflake-o" color="#006600" size={20} />
+                            : <Icon spacing={2} name="times" color="#006600" size={20} /> }
+                            <Text body spacing={0.7}>Umidade</Text>
                         </Block>
                     </Block>
                 </Block>
@@ -119,7 +130,7 @@ export default class Welcome extends Component {
                             </Badge>
                         </Block>
                         <Block middle>
-                            <Text size={15} spacing={0.4} medium white text>Acompanha em Tempo Real</Text>
+                            <Text size={15} spacing={0.4} medium white text>Acompanhar em Tempo Real</Text>
                         </Block> 
                     </LinearGradient>
                 </TouchableOpacity>
@@ -220,20 +231,53 @@ export default class Welcome extends Component {
         )
     }
 
-    handleUpdate = (bool) =>  database.ref('SoilMonitor_USJT/Sensor/').update({StatusOperacao: bool})
+    handleUpdate = (bool) => {
+        
+        if(bool){
+            this.state.AtivandoSensor = true;
+        }else{
+            this.state.DesativaSensor = true;
+        }
+
+        database.ref('SoilMonitor_USJT/Sensor/').update({StatusOperacao: bool}).then((data) =>{
+
+        if(bool){
+            setTimeout(()=>{this.setState({AtivandoSensor: false})}, 1200); 
+            
+        }else{
+            setTimeout(()=>{this.setState({DesativaSensor: false})}, 1200); 
+
+        }
+
+        }).catch((error) =>{
+
+            this.state.StatusOperacao = false;
+
+        });
+    } 
 
     componentDidMount(){
         
-    var firebaseDbTemp = database.ref('SoilMonitor_USJT/Sensor/');
+    let firebaseDbTemp = database.ref('SoilMonitor_USJT/Sensor/');
         firebaseDbTemp.on('value', (snapshot) => {
             //Sensor
-            var StatusOperacao = snapshot.val().StatusOperacao;
-            var ConectadoIP = snapshot.val().ConectadoIP;
+            let StatusOperacao = snapshot.val().StatusOperacao;
+            let ConectadoIP = snapshot.val().ConectadoIP;
             this.setState({
                 StatusOperacao: StatusOperacao,
                 ConectadoIP: ConectadoIP,
             })
-            console.log("Executado");
+        });
+
+        let firebaseDbTempAmbiente = database.ref('SoilMonitor_USJT/TemperaturaAmbiente/');
+        firebaseDbTempAmbiente.on('value', (snapshot) => {
+            //Temperatura Ambiente
+            let TemperaturaCelsius = snapshot.val().TemperaturaCelsius;
+            let Umidade = snapshot.val().Umidade;
+            this.setState({
+                TemperaturaCelsius: TemperaturaCelsius,
+                Umidade: Umidade,
+            })
         });
 
         NetInfo.addEventListener(state => {
@@ -257,6 +301,22 @@ export default class Welcome extends Component {
                 colors={['#d9b18c', '#e6ccb3', '#d9b38c', '#ac7339']}
                 style={{flex: 1}}>
 
+            <ProgressDialog
+                visible={this.state.VerificandoStatusSensor}
+                title="Verificando Status Sensor"
+                message="Por favor, aguarde..."
+            />
+
+            <ProgressDialog
+                visible={this.state.AtivandoSensor}
+                title="Ativando Sensor"
+                message="Por favor, aguarde..."
+            />
+            <ProgressDialog
+                visible={this.state.DesativaSensor}
+                title="Desativando Sensor"
+                message="Por favor, aguarde..."
+            />
 
         <Dialog 
             animationType="fade"

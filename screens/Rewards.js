@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Image, ScrollView, StyleSheet, TouchableOpacity } from 'react-native'
 import rgba from 'hex-to-rgba';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { Dialog, ProgressDialog } from "react-native-simple-dialogs";
 // check this lib for more options
 import { CircularProgress, AnimatedCircularProgress } from 'react-native-circular-progress';
 import LinearGradient from 'react-native-linear-gradient';
@@ -21,7 +22,9 @@ export default class Rewards extends Component {
     //Sensor
     Status: "Sem Sinal",
     UmidadeSensor: 0,
-    StatusOperacao: false
+    StatusOperacao: false,
+    //Bomba
+    StatusOperacaoBomba: false,
   };
 
   static navigationOptions = ({ navigation }) => {
@@ -51,7 +54,6 @@ export default class Rewards extends Component {
   }
   
   componentDidMount(){
-    this._isMounted = true;
 
     let firebaseDbTemp = database.ref('SoilMonitor_USJT/TemperaturaAmbiente');
     firebaseDbTemp.on('value', (snapshot) => {
@@ -65,6 +67,7 @@ export default class Rewards extends Component {
           UmidadeTemp: Umidade,
         })
       });
+
       let firebaseDbSensor = database.ref('SoilMonitor_USJT/Sensor');
       firebaseDbSensor.on('value', (snapshot) => {
         //Temperatura Ambiente
@@ -77,9 +80,43 @@ export default class Rewards extends Component {
           StatusOperacao: StatusOperacao
         })
       });
+
+      let firebaseDbBomba = database.ref('SoilMonitor_USJT/BombaSubmersivel');
+      firebaseDbBomba.on('value', (snapshot) => {
+        //Bomba
+        let StatusOperacaoBomba = snapshot.val().StatusOperacao;
+        this.setState({
+          StatusOperacaoBomba: StatusOperacaoBomba,
+        })
+      });
   }
+
+  handleUpdate = (bool) => {
+        
+    if(bool){
+        this.state.AtivandoBomba = true;
+    }else{
+        this.state.DesativaBomba = true;
+    }
+
+    database.ref('SoilMonitor_USJT/BombaSubmersivel/').update({StatusOperacao: bool}).then((data) =>{
+
+    if(bool){
+        setTimeout(()=>{this.setState({AtivandoBomba: false})}, 4000); 
+        
+    }else{
+        setTimeout(()=>{this.setState({DesativaBomba: false})}, 4000); 
+
+    }
+
+    }).catch((error) =>{
+
+        this.state.StatusOperacaoBomba = false;
+
+    });
+} 
+
   componentWillUnmount() {
-    this._isMounted = false;
 
     this.state.TemperaturaCelsius = 0;
     this.state.TemperaturaFahrenheit = 0;
@@ -92,15 +129,27 @@ export default class Rewards extends Component {
       return (
           
         <Block center middle style={styles.startTrip}>
+          {this.state.StatusOperacaoBomba ?
           <Badge color={rgba(theme.colors.primary, '0.1')} size={80}>
               <TouchableOpacity
-              onPress={() => this.handleUpdate(true)}>
+              onPress={() => this.handleUpdate(false)}>
+                
                   <Badge color={("#1ab2ff")} size={70}>
-                      <Pulse color={"#33bbff"} numPulses={2} diameter={100} speed={5} duration={1000} /> 
+                  <Pulse color={("#b3ebff")} numPulses={2} diameter={300} speed={10} duration={1000} /> 
+
                       <Icon name="shower" size={75/2} color="white" size={30} />
                   </Badge> 
               </TouchableOpacity>
           </Badge>
+          :  <Badge color={rgba(theme.colors.primary, '0.1')} size={80}>
+            <TouchableOpacity
+            onPress={() => this.handleUpdate(true)}>
+                <Badge color={("#1ab2ff")} size={70}>
+                    <Icon name="shower" size={75/2} color="white" size={30} />
+                </Badge> 
+            </TouchableOpacity>
+          </Badge>
+          }
         </Block>  
       )
   }
@@ -227,9 +276,20 @@ export default class Rewards extends Component {
   renderChallenges() {
 
     return (
+     
       <Card shadow style={styles.box, theme.fonts.text}>
       <Icon name="tint" style={styles.moreIcon} size={75/2} color="#33bbff" size={30} />
       <Block center>
+      <ProgressDialog
+                visible={this.state.AtivandoBomba}
+                title="Ativando Bomba de Água"
+                message="Por favor, aguarde..."
+            />
+            <ProgressDialog
+                visible={this.state.DesativaBomba}
+                title="Desativando Bomba de Água"
+                message="Por favor, aguarde..."
+            />
       <Text title spacing={1} style={{marginVertical: 8}}>
             Estado de Chuva
           </Text>
@@ -243,7 +303,7 @@ export default class Rewards extends Component {
           arcSweepAngle={360}
         />
         <Text title spacing={1} style={{marginVertical: 8}}>
-            Sem Previsão de Chuva
+            Sem Chuva
           </Text>
           <Icon name="cloud" size={75/2} color="#3d5875" size={30} />
       </Block>
