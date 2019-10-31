@@ -41,25 +41,16 @@ export default class Welcome extends Component {
     }
 
     
-    static navigationOptions = {
-        headerTitle: <Text padding={20} style={theme.fonts.header}> Soil Monitor </Text>,
-        headerRight: (
-            <TouchableOpacity>
-                <Block flex={false}>
-                    <Image 
-                        resizeMode="contain"
-                        source={require('../assets/images/Menu.png')}
-                        style={{width: 30, height:30}}
-                    />
-                    <Badge
-                        size={20}
-                        color={theme.colors.primary}
-                        style={{position: 'absolute', top: -4, right: -4}}
-                    />
-                </Block>
+    static navigationOptions =  ({ navigation }) => {
+        return {
+          headerTitle: () => <Text padding={20} style={theme.fonts.header}> Soil Monitor </Text>,
+          headerRight: () => (
+            <TouchableOpacity  onPress={() => navigation.goback()}>
+                    <Icon name="sign-out" color="black" size={40} />
             </TouchableOpacity>
-        )
-    }
+          ),
+        };
+      };
     
     renderMonthly(){
 
