@@ -39,17 +39,7 @@ export default class Rewards extends Component {
           Métricas
         </Text>
       ),
-      headerLeft: (
-        
-
-        <TouchableOpacity onPress={() => navigation.navigate("Welcome")}>
-          <Image
-            resizeMode="contain"
-            source={require('../assets/images/Back.png')}
-            style={{ width: 30, height: 24, marginBottom: 15 }}
-          />
-        </TouchableOpacity>
-      )
+      
     }
   }
   
@@ -129,7 +119,7 @@ export default class Rewards extends Component {
       return (
           
         <Block center middle style={styles.startTrip}>
-          {this.state.StatusOperacaoBomba ?
+          { this.state.StatusOperacaoBomba ?
           <Badge color={rgba(theme.colors.primary, '0.1')} size={80}>
               <TouchableOpacity
               onPress={() => this.handleUpdate(false)}>
@@ -282,12 +272,12 @@ export default class Rewards extends Component {
       <Block center>
       <ProgressDialog
                 visible={this.state.AtivandoBomba}
-                title="Ativando Bomba de Água"
+                title="Ativando Bomba de Água."
                 message="Por favor, aguarde..."
             />
             <ProgressDialog
                 visible={this.state.DesativaBomba}
-                title="Desativando Bomba de Água"
+                title="Desativando Bomba de Água."
                 message="Por favor, aguarde..."
             />
       <Text title spacing={1} style={{marginVertical: 8}}>
@@ -298,7 +288,6 @@ export default class Rewards extends Component {
           width={25}
           fill={0}
           tintColor="#00e0ff"
-          onAnimationComplete={() => console.log('onAnimationComplete')}
           backgroundColor="#3d5875"
           arcSweepAngle={360}
         />

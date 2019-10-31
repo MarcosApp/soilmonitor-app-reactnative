@@ -257,7 +257,9 @@ export default class Welcome extends Component {
     } 
 
     componentDidMount(){
-        
+
+    this.setState({VerificandoStatusSensor: true});
+
     let firebaseDbTemp = database.ref('SoilMonitor_USJT/Sensor/');
         firebaseDbTemp.on('value', (snapshot) => {
             //Sensor
@@ -293,10 +295,16 @@ export default class Welcome extends Component {
         this.state.ConectadoIP = null;
         this.state.ConectadoInternet = false;
       }
+     
     render() {
-        
-          return (
 
+        setTimeout(() => {
+            this.setState({VerificandoStatusSensor: false});
+
+        }, 4500);
+
+        return (
+            
             <LinearGradient 
                 colors={['#d9b18c', '#e6ccb3', '#d9b38c', '#ac7339']}
                 style={{flex: 1}}>
@@ -369,6 +377,7 @@ export default class Welcome extends Component {
         </Dialog>
 
             <StatusBar hidden={true} />
+
             <ScrollView style={styles.welcome} showsVerticalScrollIndicator={false}>
                 {this.renderMonthly()}
                 {this.renderAwards()}
