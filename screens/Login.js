@@ -59,9 +59,6 @@ export default class Login extends Component {
             
                 });
 
-                
-
-
             } catch (err) {
                 console.log(err);
             }
@@ -80,7 +77,7 @@ export default class Login extends Component {
                 message="Por favor, aguarde..."
             />
 
-<Dialog 
+        <Dialog 
             animationType="fade"
             contentStyle={
                 {   

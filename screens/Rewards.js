@@ -215,50 +215,14 @@ export default class Rewards extends Component {
         <Block color="gray3" style={styles.hLine} />
 
         <Block row>
-          <Block center flex={0.8}>
-            <Text size={20} spacing={1} primary>00</Text>
-            <Text spacing={0.7}>Clima</Text>
-          </Block>
-          
-          <Block center flex={2}>
-            <Text size={20} spacing={1} primary>00</Text>
-            <Text spacing={0.7}>Densidade Sensor</Text>
-          </Block>
-
-          <Block center flex={0.8}>
+          <Block center flex={1}>
             <Text size={20} spacing={1} primary>{this.state.StatusOperacao ? this.state.UmidadeTemp.toString().substring(0,2) : 0} %</Text>
             <Text spacing={0.7}>Umidade Ambiente</Text>
           </Block>
         </Block>
 
         <Block color="gray3" style={styles.hLine} />
-
-        <Block style={{ marginBottom: theme.sizes.base }}>
-          <Block row space="between" style={{ paddingLeft: 6 }}>
-            <Text body spacing={0.7}>Lorem Ipsum</Text>
-            <Text caption spacing={0.7}>8.1</Text>
-          </Block>
-          <Progress value={0.81} />
-        </Block>
         
-        <Block style={{ marginBottom: theme.sizes.base }}>
-          <Block row space="between" style={{ paddingLeft: 6 }}>
-            <Text body spacing={0.7}>Lorem Ipsum</Text>
-            <Text caption spacing={0.7}>9.8</Text>
-          </Block>
-          <Progress value={0.98} />
-        </Block>
-
-        <Block style={{ marginBottom: theme.sizes.base }}>
-          <Block row space="between" style={{ paddingLeft: 6 }}>
-            <Text body spacing={0.7}>Lorem Ipsum</Text>
-            <Text caption spacing={0.7}>7.4</Text>
-          </Block>
-          <Progress endColor="#D37694" value={0.90} />
-        </Block>
-
-        <Block color="gray3" style={styles.hLine} />
-
       </Card>
     )
   }
