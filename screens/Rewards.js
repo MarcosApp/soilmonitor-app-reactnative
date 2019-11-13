@@ -4,11 +4,11 @@ import rgba from 'hex-to-rgba';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Dialog, ProgressDialog } from "react-native-simple-dialogs";
 // check this lib for more options
-import { CircularProgress, AnimatedCircularProgress } from 'react-native-circular-progress';
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import LinearGradient from 'react-native-linear-gradient';
 import { database } from '../components/ConfigFirebase';
 const Pulse = require('react-native-pulse').default;
-import { Block, Badge, Card, Text, Progress } from '../components';
+import { Block, Badge, Card, Text } from '../components';
 import { theme } from '../constants';
 
 export default class Rewards extends Component {
@@ -222,7 +222,7 @@ export default class Rewards extends Component {
         </Block>
 
         <Block color="gray3" style={styles.hLine} />
-        
+
       </Card>
     )
   }
