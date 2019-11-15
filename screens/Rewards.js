@@ -25,6 +25,9 @@ export default class Rewards extends Component {
     StatusOperacao: false,
     //Bomba
     StatusOperacaoBomba: false,
+    //Chuva
+    DensidadeChuva: 0,
+    StatusChuva: ""
   };
 
   static navigationOptions = ({ navigation }) => {
@@ -79,6 +82,18 @@ export default class Rewards extends Component {
           StatusOperacaoBomba: StatusOperacaoBomba,
         })
       });
+
+      let firebaseDbChuva = database.ref('SoilMonitor_USJT/SensorChuva');
+      firebaseDbChuva.on('value', (snapshot) => {
+        //Chuva
+        let StatusChuva = snapshot.val().Status;
+        let DensidadeChuva = snapshot.val().DensidadeChuva;
+        this.setState({
+          StatusChuva: StatusChuva,
+          DensidadeChuva: DensidadeChuva,
+        })
+      });
+      
   }
 
   handleUpdate = (bool) => {
@@ -250,13 +265,13 @@ export default class Rewards extends Component {
       <AnimatedCircularProgress
           size={100}
           width={25}
-          fill={0}
+          fill={this.state.StatusOperacao ? this.state.DensidadeChuva : 0}
           tintColor="#00e0ff"
           backgroundColor="#3d5875"
           arcSweepAngle={360}
         />
         <Text title spacing={1} style={{marginVertical: 8}}>
-            Sem Chuva
+            {this.state.StatusOperacao ? this.state.StatusChuva.toString() : 'Sem detecção de chuva'}
           </Text>
           <Icon name="cloud" size={75/2} color="#3d5875" size={30} />
       </Block>

@@ -6,7 +6,7 @@ import { Dialog, ProgressDialog } from "react-native-simple-dialogs";
 // check this lib for more options
 import LinearGradient from 'react-native-linear-gradient';
 const Pulse = require('react-native-pulse').default;
-import { Block, Badge, Card, Text, Progress } from '../components';
+import { Block, Badge, Text, } from '../components';
 import { styles as blockStyles } from '../components/Block'
 import { styles as cardStyles } from '../components/Card'
 import { theme } from '../constants';
