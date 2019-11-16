@@ -34,7 +34,7 @@ export default class Rewards extends Component {
     return {
       headerTitle: (
         <Text
-            style={[
+          style={[
             theme.fonts.header,
             { paddingLeft: theme.sizes.base }
           ]}
@@ -42,84 +42,84 @@ export default class Rewards extends Component {
           Métricas
         </Text>
       ),
-      
+
     }
   }
-  
-  componentDidMount(){
+
+  componentDidMount() {
 
     let firebaseDbTemp = database.ref('SoilMonitor_USJT/TemperaturaAmbiente');
     firebaseDbTemp.on('value', (snapshot) => {
-        //Temperatura Ambiente
-        let TemperaturaCelsius = snapshot.val().TemperaturaCelsius;
-        let TemperaturaFahrenheit = snapshot.val().TemperaturaFahrenheit;
-        let Umidade = snapshot.val().Umidade;
-        this.setState({
-          TemperaturaCelsius: TemperaturaCelsius,
-          TemperaturaFahrenheit: TemperaturaFahrenheit,
-          UmidadeTemp: Umidade,
-        })
-      });
+      //Temperatura Ambiente
+      let TemperaturaCelsius = snapshot.val().TemperaturaCelsius;
+      let TemperaturaFahrenheit = snapshot.val().TemperaturaFahrenheit;
+      let Umidade = snapshot.val().Umidade;
+      this.setState({
+        TemperaturaCelsius: TemperaturaCelsius,
+        TemperaturaFahrenheit: TemperaturaFahrenheit,
+        UmidadeTemp: Umidade,
+      })
+    });
 
-      let firebaseDbSensor = database.ref('SoilMonitor_USJT/Sensor');
-      firebaseDbSensor.on('value', (snapshot) => {
-        //Temperatura Ambiente
-        let StatusOperacao = snapshot.val().StatusOperacao;
-        let Status = snapshot.val().Status;
-        let Umidade = snapshot.val().Umidade;
-        this.setState({
-          Status: Status,
-          UmidadeSensor: Umidade,
-          StatusOperacao: StatusOperacao
-        })
-      });
+    let firebaseDbSensor = database.ref('SoilMonitor_USJT/Sensor');
+    firebaseDbSensor.on('value', (snapshot) => {
+      //Temperatura Ambiente
+      let StatusOperacao = snapshot.val().StatusOperacao;
+      let Status = snapshot.val().Status;
+      let Umidade = snapshot.val().Umidade;
+      this.setState({
+        Status: Status,
+        UmidadeSensor: Umidade,
+        StatusOperacao: StatusOperacao
+      })
+    });
 
-      let firebaseDbBomba = database.ref('SoilMonitor_USJT/BombaSubmersivel');
-      firebaseDbBomba.on('value', (snapshot) => {
-        //Bomba
-        let StatusOperacaoBomba = snapshot.val().StatusOperacao;
-        this.setState({
-          StatusOperacaoBomba: StatusOperacaoBomba,
-        })
-      });
+    let firebaseDbBomba = database.ref('SoilMonitor_USJT/BombaSubmersivel');
+    firebaseDbBomba.on('value', (snapshot) => {
+      //Bomba
+      let StatusOperacaoBomba = snapshot.val().StatusOperacao;
+      this.setState({
+        StatusOperacaoBomba: StatusOperacaoBomba,
+      })
+    });
 
-      let firebaseDbChuva = database.ref('SoilMonitor_USJT/SensorChuva');
-      firebaseDbChuva.on('value', (snapshot) => {
-        //Chuva
-        let StatusChuva = snapshot.val().Status;
-        let DensidadeChuva = snapshot.val().DensidadeChuva;
-        this.setState({
-          StatusChuva: StatusChuva,
-          DensidadeChuva: DensidadeChuva,
-        })
-      });
-      
+    let firebaseDbChuva = database.ref('SoilMonitor_USJT/SensorChuva');
+    firebaseDbChuva.on('value', (snapshot) => {
+      //Chuva
+      let StatusChuva = snapshot.val().Status;
+      let DensidadeChuva = snapshot.val().DensidadeChuva;
+      this.setState({
+        StatusChuva: StatusChuva,
+        DensidadeChuva: DensidadeChuva,
+      })
+    });
+
   }
 
   handleUpdate = (bool) => {
-        
-    if(bool){
-        this.state.AtivandoBomba = true;
-    }else{
-        this.state.DesativaBomba = true;
+
+    if (bool) {
+      this.state.AtivandoBomba = true;
+    } else {
+      this.state.DesativaBomba = true;
     }
 
-    database.ref('SoilMonitor_USJT/BombaSubmersivel/').update({StatusOperacao: bool}).then((data) =>{
+    database.ref('SoilMonitor_USJT/BombaSubmersivel/').update({ StatusOperacao: bool }).then((data) => {
 
-    if(bool){
-        setTimeout(()=>{this.setState({AtivandoBomba: false})}, 4000); 
-        
-    }else{
-        setTimeout(()=>{this.setState({DesativaBomba: false})}, 4000); 
+      if (bool) {
+        setTimeout(() => { this.setState({ AtivandoBomba: false }) }, 5500);
 
-    }
+      } else {
+        setTimeout(() => { this.setState({ DesativaBomba: false }) }, 5500);
 
-    }).catch((error) =>{
+      }
 
-        this.state.StatusOperacaoBomba = false;
+    }).catch((error) => {
+
+      this.state.StatusOperacaoBomba = false;
 
     });
-} 
+  }
 
   componentWillUnmount() {
 
@@ -130,33 +130,33 @@ export default class Rewards extends Component {
     this.state.UmidadeSensor = 0;
     this.state.StatusOperacao = false;
   }
-    renderTripButton(){
-      return (
-          
-        <Block center middle style={styles.startTrip}>
-          { this.state.StatusOperacaoBomba ?
-          <Badge color={rgba(theme.colors.primary, '0.1')} size={80}>
-              <TouchableOpacity
-              onPress={() => this.handleUpdate(false)}>
-                
-                  <Badge color={("#1ab2ff")} size={70}>
-                  <Pulse color={("#b3ebff")} numPulses={2} diameter={300} speed={10} duration={1000} /> 
+  renderTripButton() {
+    return (
 
-                      <Icon name="shower" size={75/2} color="white" size={30} />
-                  </Badge> 
-              </TouchableOpacity>
-          </Badge>
-          :  <Badge color={rgba(theme.colors.primary, '0.1')} size={80}>
+      <Block center middle style={styles.startTrip}>
+        {this.state.StatusOperacaoBomba ?
+          <Badge color={rgba(theme.colors.primary, '0.1')} size={80}>
             <TouchableOpacity
-            onPress={() => this.handleUpdate(true)}>
-                <Badge color={("#1ab2ff")} size={70}>
-                    <Icon name="shower" size={75/2} color="white" size={30} />
-                </Badge> 
+              onPress={() => this.handleUpdate(false)}>
+
+              <Badge color={("#1ab2ff")} size={70}>
+                <Pulse color={("#b3ebff")} numPulses={2} diameter={300} speed={10} duration={1000} />
+
+                <Icon name="shower" size={75 / 2} color="white" size={30} />
+              </Badge>
             </TouchableOpacity>
           </Badge>
-          }
-        </Block>  
-      )
+          : <Badge color={rgba(theme.colors.primary, '0.1')} size={80}>
+            <TouchableOpacity
+              onPress={() => this.handleUpdate(true)}>
+              <Badge color={("#1ab2ff")} size={70}>
+                <Icon name="shower" size={75 / 2} color="white" size={30} />
+              </Badge>
+            </TouchableOpacity>
+          </Badge>
+        }
+      </Block>
+    )
   }
 
   renderMonthly() {
@@ -164,7 +164,7 @@ export default class Rewards extends Component {
       <Card shadow style={{ paddingVertical: theme.sizes.padding }}>
         <Block>
           <Block center>
-          <Icon name="soundcloud" style={styles.moreIcon} size={75/2} color="#b3e6ff" size={30} />
+            <Icon name="soundcloud" style={styles.moreIcon} size={75 / 2} color="#b3e6ff" size={30} />
             <Text h3 primary spacing={1.7}>{this.state.Status}</Text>
             <Text spacing={0.7}>Temperatura Ambiente</Text>
           </Block>
@@ -173,7 +173,7 @@ export default class Rewards extends Component {
 
           <Block row>
             <Block center>
-              <Text size={20} spacing={0.6} primary style={{ marginBottom: 6 }}>{ this.state.StatusOperacao ? this.state.TemperaturaCelsius.toString().substring(0,4) : 0 } ºC</Text>
+              <Text size={20} spacing={0.6} primary style={{ marginBottom: 6 }}>{this.state.StatusOperacao ? this.state.TemperaturaCelsius.toString().substring(0, 4) : 0} ºC</Text>
               <Icon spacing={2} name="thermometer-quarter" color="#006600" size={20} />
               <Text body spacing={0.7}>Temperatura</Text>
               <Text body spacing={0.7}>Celsius</Text>
@@ -182,7 +182,7 @@ export default class Rewards extends Component {
             <Block flex={false} color="gray3" style={styles.vLine} />
 
             <Block center>
-              <Text size={20} spacing={1.8} primary style={{ marginBottom: 6, marginBottom:5  }}>{ this.state.StatusOperacao ? this.state.TemperaturaFahrenheit.toString().substring(0,4) : 0 } ºF</Text>
+              <Text size={20} spacing={1.8} primary style={{ marginBottom: 6, marginBottom: 5 }}>{this.state.StatusOperacao ? this.state.TemperaturaFahrenheit.toString().substring(0, 4) : 0} ºF</Text>
               <Icon spacing={2} name="thermometer-half" color="#006600" size={20} />
               <Text body spacing={0.7}>Temperatura</Text>
               <Text body spacing={0.7}>Fahrenheit</Text>
@@ -192,37 +192,37 @@ export default class Rewards extends Component {
       </Card>
     )
   }
-  
+
   renderRewards() {
-    
+
     return (
-      <Card shadow style={{ paddingVertical: theme.sizes.base * 2}}>
-        <Icon name="pagelines" style={styles.moreIcon} size={75/2} color="#006600" size={30} />
+      <Card shadow style={{ paddingVertical: theme.sizes.base * 2 }}>
+        <Icon name="pagelines" style={styles.moreIcon} size={75 / 2} color="#006600" size={30} />
         <Block center>
-       
-            <AnimatedCircularProgress
-              size={250}
-              fill={this.state.StatusOperacao ? this.state.UmidadeSensor : 0} // percentage
-              width={15}
-              backgroundWidth={15}
-              tintColor={theme.colors.primary} // gradient is not supported :(
-              backgroundColor={theme.colors.gray3}
-              backgroundWidth={20 / 2}
-            >
+
+          <AnimatedCircularProgress
+            size={250}
+            fill={this.state.StatusOperacao ? this.state.UmidadeSensor : 0} // percentage
+            width={15}
+            backgroundWidth={15}
+            tintColor={theme.colors.primary} // gradient is not supported :(
+            backgroundColor={theme.colors.gray3}
+            backgroundWidth={20 / 2}
+          >
             {() => (
               <Block center middle>
-                <Text h2 medium>{this.state.StatusOperacao ? this.state.UmidadeSensor.toString().substring(0,3) : 0 }%</Text>
+                <Text h2 medium>{this.state.StatusOperacao ? this.state.UmidadeSensor.toString().substring(0, 3) : 0}%</Text>
               </Block>
             )}
           </AnimatedCircularProgress>
         </Block>
 
         <Block center>
-          <Text title spacing={1} style={{marginVertical: 8}}>
+          <Text title spacing={1} style={{ marginVertical: 8 }}>
             Umidade Porcentual
           </Text>
           <Text>
-            <Text primary>{this.state.StatusOperacao ? this.state.UmidadeSensor.toString().substring(0,3) : 0 }% </Text>
+            <Text primary>{this.state.StatusOperacao ? this.state.UmidadeSensor.toString().substring(0, 3) : 0}% </Text>
             <Text gray transform="uppercase">Sensor</Text>
           </Text>
         </Block>
@@ -231,7 +231,7 @@ export default class Rewards extends Component {
 
         <Block row>
           <Block center flex={1}>
-            <Text size={20} spacing={1} primary>{this.state.StatusOperacao ? this.state.UmidadeTemp.toString().substring(0,2) : 0} %</Text>
+            <Text size={20} spacing={1} primary>{this.state.StatusOperacao ? this.state.UmidadeTemp.toString().substring(0, 2) : 0} %</Text>
             <Text spacing={0.7}>Umidade Ambiente</Text>
           </Block>
         </Block>
@@ -245,46 +245,46 @@ export default class Rewards extends Component {
   renderChallenges() {
 
     return (
-     
+
       <Card shadow style={styles.box, theme.fonts.text}>
-      <Icon name="tint" style={styles.moreIcon} size={75/2} color="#33bbff" size={30} />
-      <Block center>
-      <ProgressDialog
-                visible={this.state.AtivandoBomba}
-                title="Ativando Bomba de Água."
-                message="Por favor, aguarde..."
-            />
-            <ProgressDialog
-                visible={this.state.DesativaBomba}
-                title="Desativando Bomba de Água."
-                message="Por favor, aguarde..."
-            />
-      <Text title spacing={1} style={{marginVertical: 8}}>
+        <Icon name="tint" style={styles.moreIcon} size={75 / 2} color="#33bbff" size={30} />
+        <Block center>
+          <ProgressDialog
+            visible={this.state.AtivandoBomba}
+            title="Ativando Bomba de Água."
+            message="Por favor, aguarde..."
+          />
+          <ProgressDialog
+            visible={this.state.DesativaBomba}
+            title="Desativando Bomba de Água."
+            message="Por favor, aguarde..."
+          />
+          <Text title spacing={1} style={{ marginVertical: 8 }}>
             Estado de Chuva
           </Text>
-      <AnimatedCircularProgress
-          size={100}
-          width={25}
-          fill={this.state.StatusOperacao ? this.state.DensidadeChuva : 0}
-          tintColor="#00e0ff"
-          backgroundColor="#3d5875"
-          arcSweepAngle={360}
-        />
-        <Text title spacing={1} style={{marginVertical: 8}}>
+          <AnimatedCircularProgress
+            size={100}
+            width={25}
+            fill={this.state.StatusOperacao ? this.state.DensidadeChuva : 0}
+            tintColor="#00e0ff"
+            backgroundColor="#3d5875"
+            arcSweepAngle={360}
+          />
+          <Text title spacing={1} style={{ marginVertical: 8 }}>
             {this.state.StatusOperacao ? this.state.StatusChuva.toString() : 'Sem detecção de chuva'}
           </Text>
-          <Icon name="cloud" size={75/2} color="#3d5875" size={30} />
-      </Block>
-  </Card>
+          <Icon name="cloud" size={75 / 2} color="#3d5875" size={30} />
+        </Block>
+      </Card>
     )
   }
 
   render() {
-      
+
     return (
       <LinearGradient
-          colors={['#e6ccb3', '#e6ccb3', '#d9b38c', '#ac7339']}
-          style={{flex: 1}}>
+        colors={['#e6ccb3', '#e6ccb3', '#d9b38c', '#ac7339']}
+        style={{ flex: 1 }}>
         <ScrollView style={styles.rewards} showsVerticalScrollIndicator={false}>
           {this.renderMonthly()}
           {this.renderRewards()}
@@ -313,8 +313,8 @@ const styles = StyleSheet.create({
   moreIcon: {
     padding: 5,
   },
-  startTrip:{
-    position:'absolute',
+  startTrip: {
+    position: 'absolute',
     right: 10,
     bottom: 10,
   }
