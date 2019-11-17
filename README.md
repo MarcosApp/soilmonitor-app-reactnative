@@ -9,7 +9,8 @@ dispositivo móvel conectado à internet que obterá as informações em tempo r
 <img  align="left" src="https://raw.githubusercontent.com/MarcosApp/SoilMonitor-App-ReactNative/ad3554e171c3c33ce7de026ba3a6e6ce0a09112e/rawimagemgit/imagem2.jpeg" width="200">
 <img align="left" src="https://raw.githubusercontent.com/MarcosApp/SoilMonitor-App-ReactNative/ad3554e171c3c33ce7de026ba3a6e6ce0a09112e/rawimagemgit/imagem1.jpeg" width="200">
 
-
+</br>
+</br>
 
 ## Installation
 
