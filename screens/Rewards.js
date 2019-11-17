@@ -107,10 +107,10 @@ export default class Rewards extends Component {
     database.ref('SoilMonitor_USJT/BombaSubmersivel/').update({ StatusOperacao: bool }).then((data) => {
 
       if (bool) {
-        setTimeout(() => { this.setState({ AtivandoBomba: false }) }, 10000);
+        setTimeout(() => { this.setState({ AtivandoBomba: false }) }, 8500);
 
       } else {
-        setTimeout(() => { this.setState({ DesativaBomba: false }) }, 10000);
+        setTimeout(() => { this.setState({ DesativaBomba: false }) }, 8500);
 
       }
 

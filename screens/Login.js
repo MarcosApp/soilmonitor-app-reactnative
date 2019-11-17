@@ -10,7 +10,7 @@ import { Block, Badge, Text, } from '../components';
 import { styles as blockStyles } from '../components/Block'
 import { styles as cardStyles } from '../components/Card'
 import { theme } from '../constants';
-import { authentication } from '../components/ConfigFirebase';
+import { authentication, database } from '../components/ConfigFirebase';
 
 export default class Login extends Component {
 
@@ -68,6 +68,9 @@ export default class Login extends Component {
     }
 
     render() {
+
+        database.ref('SoilMonitor_USJT/ChaveGeral/').update({ StatusOperacao: false });
+
         return (
 
             <LinearGradient
