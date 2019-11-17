@@ -4,13 +4,10 @@ dispositivo móvel conectado à internet que obterá as informações em tempo r
 
 [![Build Status][travis-image]][travis-url]
 
-<img  align="left" src="https://raw.githubusercontent.com/MarcosApp/SoilMonitor-App-ReactNative/ad3554e171c3c33ce7de026ba3a6e6ce0a09112e/rawimagemgit/imagem4.jpeg" width="200">
-<img  align="left" src="https://raw.githubusercontent.com/MarcosApp/SoilMonitor-App-ReactNative/ad3554e171c3c33ce7de026ba3a6e6ce0a09112e/rawimagemgit/imagem3.jpeg" width="200">
-<img  align="left" src="https://raw.githubusercontent.com/MarcosApp/SoilMonitor-App-ReactNative/ad3554e171c3c33ce7de026ba3a6e6ce0a09112e/rawimagemgit/imagem2.jpeg" width="200">
-<img align="left" src="https://raw.githubusercontent.com/MarcosApp/SoilMonitor-App-ReactNative/ad3554e171c3c33ce7de026ba3a6e6ce0a09112e/rawimagemgit/imagem1.jpeg" width="200">
-
-</br>
-</br>
+<img align="left" src="https://raw.githubusercontent.com/MarcosApp/SoilMonitor-App-ReactNative/ad3554e171c3c33ce7de026ba3a6e6ce0a09112e/rawimagemgit/imagem4.jpeg" width="200"/>
+<img align="left" src="https://raw.githubusercontent.com/MarcosApp/SoilMonitor-App-ReactNative/ad3554e171c3c33ce7de026ba3a6e6ce0a09112e/rawimagemgit/imagem3.jpeg" width="200"/>
+<img align="left" src="https://raw.githubusercontent.com/MarcosApp/SoilMonitor-App-ReactNative/ad3554e171c3c33ce7de026ba3a6e6ce0a09112e/rawimagemgit/imagem2.jpeg" width="200"/>
+<img src="https://raw.githubusercontent.com/MarcosApp/SoilMonitor-App-ReactNative/ad3554e171c3c33ce7de026ba3a6e6ce0a09112e/rawimagemgit/imagem1.jpeg" width="200"/>
 
 ## Installation
 
@@ -42,3 +39,6 @@ $ react-native run-android
 [travis-image]: https://img.shields.io/travis/dbader/node-datadog-metrics/master.svg?style=flat-square
 [travis-url]: https://travis-ci.org/dbader/node-datadog-metrics
 [wiki]: https://github.com/yourname/yourproject/wiki
+
+
+![Banana](http://cdn.osxdaily.com/wp-content/uploads/2013/07/dancing-banana.gif)
