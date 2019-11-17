@@ -1,6 +1,6 @@
 # Soil Monitor - React Native (Projeto PI - USJT 2019)
 > Soil Monitor é tornar o monitoramento e irrigação do solo simplificado com um
-dispositivo móvel conectado à internet que obterá as informações em tempo real do estado atual de seu solo através da aplicação. O sensor desenvolvido neste trabalho está ligado diretamente ao solo, enviando dados.
+dispositivo móvel conectado à internet que obterá as informações em tempo real do estado atual de seu solo. O sensor desenvolvido neste trabalho está ligado diretamente ao solo.
 
 [![Build Status][travis-image]][travis-url]
 
