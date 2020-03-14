@@ -14,7 +14,7 @@ dispositivo móvel conectado à internet que obterá as informações em tempo r
 OS X & Linux & Windows:
 
 ```sh
-$ npm install install
+$ npm install
 ```
 ```sh
 $ react-native start
